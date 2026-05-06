@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DOM 조작 예시</title>
+  </head>
+  <body>
+    <h1 id="title">안녕하세요</h1>
+    <p class="content">여기에 내용을 추가합니다.</p>
+
+    <button id="changeBtn">내용 변경하기</button>
+
+    <script>
+      // id 로 요소 가져오기
+      const titleElement = document.getElementById('title');
+      
+      //요소의 HTML 변경
+      titleElement.innerHTML = '<em>안녕하세요</em>';
+      
+      // class 로 요소 가오져기
+      const contentElement = document.querySelector('.content');
+
+      // 버튼 요소 가져오기
+      const buttonElement = document.getElementById('changeBtn');
+
+      // 요소의 텍스트의 내용 변경
+      contentElement.textContent = "내용 변경 쨘~!";
+
+      buttonElement.addEventListener('click', () => {
+        
+      })
+    </script>
+  </body>
+</html>

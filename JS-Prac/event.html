@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>이벤트 실습</title>
+</head>
+<body>
+
+  <button id="myButton">눌러보세요</button>
+  <p id="message">버튼을 아직 누르지 않았습니다.</p>
+
+  <script>
+    const btn = document.getElementById('myButton');
+    const msg = document.getElementById('message');
+
+    btn.addEventListener('click', (e) => {
+      msg.textContent = '버튼이 눌렸습니다!';  // <p> 태그의 내용 변경
+      e.target.style.backgroundColor = 'lightblue';  // 클릭된 버튼의 배경색 변경
+      console.log(e.type);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>이벤트 실습</title>
+  </head>
+  <body>
+    <div id="parent" style="padding: 20px; background-color: #ddd">
+      <button id="child">버튼</button>
+    </div>
+
+    <script>
+      const parent = document.getElementById('parent');
+      const child = document.getElementById('child');
+
+      parent.addEventListener('click', () => {
+        alert('부모 요소 DIV 클릭 이벤트 발생!');
+      });
+
+      child.addEventListener('click', (e) => {
+        alert('자식 요소 BUTTON 클릭 이벤트 발생!');
+        e.stopPropagation(); // 이벤트 버블링 방지
+      });
+    </script>
+  </body>
+</html>
