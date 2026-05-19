@@ -1,0 +1,42 @@
+export const mockup = [
+  {
+    id: 1,
+    title: "사이드 프로젝트 구인",
+    author: "이예나",
+    createdAt: "2026-04-07T00:00:00.000000",
+    totalLikes: 3,
+    totalComments: 21,
+  },
+  {
+    id: 2,
+    title: "Javascript 기초 (2)",
+    author: "문금미",
+    createdAt: "2025-04-01T00:00:00.000000",
+    totalLikes: 0,
+    totalComments: 8,
+  },
+  {
+    id: 3,
+    title: "Javascript 기초 (1)",
+    author: "김서영",
+    createdAt: "2025-03-13T00:00:00.000000",
+    totalLikes: 1,
+    totalComments: 0,
+  },
+  {
+    id: 4,
+    title: "React styled-components 팁",
+    author: "이예나",
+    createdAt: "2025-04-10T00:00:00.000000",
+    totalLikes: 5,
+    totalComments: 12,
+  },
+  {
+    id: 5,
+    title: "Next.js 서버사이드 렌더링 이해",
+    author: "문금미",
+    createdAt: "2025-04-15T00:00:00.000000",
+    totalLikes: 2,
+    totalComments: 5,
+  },
+];
