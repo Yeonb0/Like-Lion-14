@@ -46,7 +46,8 @@ export default function Login() {
       }
 
       const result = await response.json();
-      localStorage.setItem("accessToken", result.data.token);
+      localStorage.setItem("accessToken", result.data.accessToken);
+      console.log("accessToken:", localStorage.getItem("accessToken"));
       navigate("/");
     } catch (error) {
       console.error("Error creating post:", error);

@@ -1,25 +1,27 @@
 import styled from "styled-components";
 import { formatKoreanDate } from "../../../utils/dateFormat";
-
+import PostEditBtn from "./PostEditBtn";
+import PostDeleteBtn from "./PostDeleteBtn";
 import LikeBtn from "./LikeBtn";
 
 
-const PostContent = ({data}) => {
+const PostContent = ({ data }) => {
 
   return (
     <PostContentWrapper>
       <Header>
-        <Title>제목</Title>
+        <Title>{data?.title}</Title>
         <DetailInfo>
-          <Author>글쓴이</Author>
-          <UploadedDate>생성날짜</UploadedDate>
+          <Author>{data?.author}</Author>
+          <UploadedDate>{formatKoreanDate(data?.createdAt)}</UploadedDate>
         </DetailInfo>
       </Header>
-      <Content>내용</Content>
+      <Content>{data?.content}</Content>
       <BtnSection>
         <LikeBtn data={data} />
         <BtnWrapper>
-          {/* TODO : PostEditBtn, PostDeleteBtn */}
+          <PostEditBtn data={data} />
+          <PostDeleteBtn data={data} />
         </BtnWrapper>
       </BtnSection>
     </PostContentWrapper>
