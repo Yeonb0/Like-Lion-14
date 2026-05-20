@@ -4,6 +4,10 @@ import HeaderLayout from "./components/common/Layout";
 import WritePost from "./pages/WritePost";
 import PostDetail from "./pages/PostDetail";
 import Login from "./pages/Login";
+import LoginGuard from "./components/common/LoginGuard"; 
+
+const ProtectedWritePost = LoginGuard(WritePost);
+const ProtectedPostDetail = LoginGuard(PostDetail);
 
 const router = createBrowserRouter([
   {
@@ -16,11 +20,11 @@ const router = createBrowserRouter([
       },
       {
         path: "post/:postId",
-        element: <PostDetail />,
+        element: <ProtectedPostDetail />,
       },
       {
         path: "write",
-        element: <WritePost />,
+        element: <ProtectedWritePost />,
       },
       {
         path: "login",
