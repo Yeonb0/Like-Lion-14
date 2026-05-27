@@ -5,7 +5,7 @@ import PostDeleteBtn from "./PostDeleteBtn";
 import LikeBtn from "./LikeBtn";
 
 
-const PostContent = ({ data }) => {
+const PostContent = ({ data, refreshPostData }) => {
 
   return (
     <PostContentWrapper>
@@ -18,7 +18,7 @@ const PostContent = ({ data }) => {
       </Header>
       <Content>{data?.content}</Content>
       <BtnSection>
-        <LikeBtn data={data} />
+        <LikeBtn data={data} refreshPostData={refreshPostData} />
         <BtnWrapper>
           <PostEditBtn data={data} />
           <PostDeleteBtn data={data} />

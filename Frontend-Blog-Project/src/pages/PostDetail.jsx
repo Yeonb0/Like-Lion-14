@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PostContent from "../components/PostDetail/post/PostContent";
 import CommentList from "../components/PostDetail/comment/CommentList";
+import WriteComment from "../components/PostDetail/comment/WriteComment";
 // import {data} from "../components/PostDetail/postdata";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -41,9 +42,14 @@ export default function PostDetail() {
 
   return (
     <PostDetailWrapper>
-      <PostContent data={postData} />
-        <CommentList
+      <PostContent data={postData} refreshPostData={refreshPostData} />
+      <WriteComment 
         commentList={postData?.comments}
+        refreshPostData={refreshPostData}
+      />
+      <CommentList
+        commentList={postData?.comments}
+        refreshPostData={refreshPostData}
       />
     </PostDetailWrapper>
   );
