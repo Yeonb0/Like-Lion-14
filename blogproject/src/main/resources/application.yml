@@ -8,3 +8,8 @@ spring:
 
     # 테이블 생성 후에 data.sql 실행
     defer-datasource-initialization: true
+  
+  # 테스트에서는 data.sql 시드 데이터를 넣지 않는다 (빈 테이블 전제)
+  sql:
+    init:
+      mode: never
