@@ -1,7 +1,14 @@
 package com.backendblog.springblog.domain;
 
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,6 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@EntityListeners(AuditingEntityListener.class) 
 @Entity // 엔티티로 지정
 @Getter
 @NoArgsConstructor
@@ -23,6 +31,14 @@ public class Article {
 
     @Column(name = "content", nullable = false) 
     private String content;
+
+    @CreatedDate // 엔티티가 생성되어 저장될 때 시간이 자동 저장
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate // 조회한 Entity의 값을 변경할 때 시간이 자동 저장
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Builder // 빌더 패턴으로 객체 생성
     public Article(String title, String content) {
