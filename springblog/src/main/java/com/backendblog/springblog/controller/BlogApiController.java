@@ -17,6 +17,12 @@ import com.backendblog.springblog.dto.AddArticleRequest;
 import com.backendblog.springblog.dto.ArticleResponse;
 import com.backendblog.springblog.dto.UpdateArticleRequest;
 import com.backendblog.springblog.service.BlogService;
+import com.backendblog.springblog.dto.WritingSuggestionRequest;
+import com.backendblog.springblog.dto.WritingSuggestionResponse;
+import com.backendblog.springblog.service.WritingAssistantService;
+import com.backendblog.springblog.dto.GeneratorThumbnailRequest;
+import com.backendblog.springblog.dto.GeneratorThumbnailResponse;
+import com.backendblog.springblog.service.ThumbnailGeneratorService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +31,8 @@ import lombok.RequiredArgsConstructor;
 public class BlogApiController {
 
     private final BlogService blogService;
+    private final WritingAssistantService writingAssistantService;
+    private final ThumbnailGeneratorService thumbnailGeneratorService;
 
     // HTTP 메소드가 POST 일때 전달받은 URL과 동일하면 메소드로 매칭
     @PostMapping("/api/articles")
@@ -70,5 +78,21 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .body(new ArticleResponse(updatedArticle));
+    }
+
+    @PostMapping("/api/ai-suggestions")
+    public ResponseEntity<WritingSuggestionResponse> writingAssist(@RequestBody WritingSuggestionRequest request) {
+        WritingSuggestionResponse response = writingAssistantService.getWritingAssist(request);
+
+        return ResponseEntity.ok()
+                .body(response);
+    }
+
+    @PostMapping("/api/ai-thumbnails")
+    public ResponseEntity<GeneratorThumbnailResponse> thumbnailGenerator(@RequestBody GeneratorThumbnailRequest request) {
+        GeneratorThumbnailResponse response = thumbnailGeneratorService.generateThumbnail(request);
+
+        return ResponseEntity.ok()
+                .body(response);
     }
 }

@@ -1,8 +1,8 @@
 package com.backendblog.springblog.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,4 +10,10 @@ import lombok.AllArgsConstructor;
 public class UpdateArticleRequest {
     private String title;
     private String content;
+    private String imageUrl;
+
+    public UpdateArticleRequest(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

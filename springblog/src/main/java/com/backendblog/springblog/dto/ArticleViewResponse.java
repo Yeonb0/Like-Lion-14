@@ -14,11 +14,13 @@ public class ArticleViewResponse {
     private String title;
     private String content;
     private LocalDateTime createdAt;
+    private String imageUrl;
 
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
         this.content = article.getContent();
+        this.imageUrl = article.getImageUrl();
         this.createdAt = article.getCreatedAt();
     }
 }
