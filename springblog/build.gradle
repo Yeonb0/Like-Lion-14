@@ -37,6 +37,10 @@ dependencies {
 
 	implementation platform('org.springframework.ai:spring-ai-bom:2.0.0')
 	implementation 'org.springframework.ai:spring-ai-starter-model-google-genai'
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {
