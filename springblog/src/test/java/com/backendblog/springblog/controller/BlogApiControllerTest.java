@@ -25,7 +25,6 @@ import org.springframework.web.context.WebApplicationContext;
 import com.backendblog.springblog.domain.Article;
 import com.backendblog.springblog.dto.AddArticleRequest;
 import com.backendblog.springblog.dto.UpdateArticleRequest;
-import com.backendblog.springblog.dto.UpdateArticleRequest;
 import com.backendblog.springblog.repository.BlogRepository;
 
 import tools.jackson.databind.ObjectMapper;

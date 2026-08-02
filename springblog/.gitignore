@@ -39,3 +39,4 @@ out/
 .fake
 
 .env
+application.properties
