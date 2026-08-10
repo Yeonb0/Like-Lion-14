@@ -32,6 +32,9 @@ public class Article {
     @Column(name = "content", nullable = false) 
     private String content;
 
+    @Column(name = "author", nullable = false)
+    private String author;
+    
     @CreatedDate // 엔티티가 생성되어 저장될 때 시간이 자동 저장
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -44,10 +47,11 @@ public class Article {
     private String imageUrl;
 
     @Builder // 빌더 패턴으로 객체 생성
-    public Article(String title, String content, String imageUrl) {
+    public Article(String title, String content, String imageUrl, String author) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
+        this.author = author;
     }
 
     public void update(String title, String content, String imageUrl) {

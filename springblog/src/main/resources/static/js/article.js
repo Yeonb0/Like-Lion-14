@@ -262,3 +262,150 @@ if (suggestionContent) {
     }
   });
 }
+
+// 생성 기능
+const createButton = document.getElementById('create-btn');
+
+if (createButton) {
+  // 등록 버튼을 클릭하면 /api/articles 로 요청을 보냄
+  createButton.addEventListener('click', event => {
+    body = JSON.stringify({
+      title: document.getElementById('title').value,
+      imgUrl: document.getElementById('image-url').value,
+      content: document.getElementById('content').value,
+    })
+    const success = () => {
+      alert('등록 완료되었습니다.');
+      location.replace('/articles');
+    }
+    const fail = () => {
+      alert('등록 실패했습니다.');
+      location.replace('/articles');
+    }
+
+    httpRequest('POST', '/api/articles', body, success, fail)
+  });
+}
+
+// 쿠키를 가져오는 함수
+const getCookey = (key) => {
+  var result = null;
+  var cookie = document.cookie.split(';');
+  cookie.some((item) => {
+    item = item.replace(' ', '');
+
+    var dic = item.split('=');
+
+    if (key === dic[0]) {
+      result = dic[1];
+      return true;
+    }
+  });
+  return result;
+}
+
+// HTTP 요청을 보내는 함수
+const httpRequest = (method, url, body, success, fail) => {
+  fetch(url, {
+    method: method,
+    headers: {
+      // 로컬 스토리지에서 액세스 토큰 값을 가져와 헤더에 추가
+      Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  }).then((response) => {
+    if (response.status === 401 && refreshToken) {
+      fetch("/api/token", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          "Content-Type": "application/json"
+        },
+      })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((result) => {
+        // 재발급이 성공하면 로컬 스토리지 값을 새로운 액세스 토큰으로 교체
+        localStorage.setItem("access_token", result.accessToken);
+        httpRequest(method, url, body, success, fail);
+      })
+      .catch((error) => fail());
+    } else {
+      return fail();
+    }
+  })
+};
+
+// 삭제 기능
+const deleteButton = document.getElementById('delete-btn');
+
+if (deleteButton) {
+  deleteButton.addEventListener('click', event => {
+    let id = document.getElementById('article-id').value;
+    const success = () => {
+      alert('삭제가 완료되었습니다.');
+      location.replace('/articles');
+    };
+
+    const fail = () => {
+      alert('삭제 실패했습니다.');
+      location.replace('/articles');
+    };
+
+    httpRequest('DELETE', `/api/articles/${id}`, null, success, fail)
+  });
+}
+
+// 수정 기능
+const modifyButton = document.getElementById('modify-btn');
+
+if(modifyButton) {
+  modifyButton.addEventListener('click', event => {
+    let params = new URLSearchParams(location.search);
+    let id = params.get('id');
+
+    const body = JSON.stringify({
+      title: document.getElementById('title').value,
+      imageUrl: document.getElementById('image-url').value,
+      content: document.getElementById('content').value,
+    });
+
+    const success = () => {
+      alert('수정 완료되었습니다.');
+      location.replace(`/articles/${id}`);
+    };
+
+    const fail = () => {
+      alert('수정 실패했습니다.');
+      location.replace(`/articles/${id}`);
+    };
+
+    httpRequest('PUT', `/api/articles/${id}`, body, success, fail)
+  });
+}
+
+// 로그아웃 기능
+const logoutButton = document.getElementById('logout-btn');
+
+if (logoutButton) {
+  logoutButton.addEventListener('click', event => {
+    const success = () => {
+      // 로컬 스토리지에 저장된 액세스 토큰 삭제
+      localStorage.removeItem('access_token');
+
+      // 쿠키에 저장된 리프레시 토큰 삭제
+      deleteCookie('refresh_token');
+      location.replace('/login');
+    };
+
+    const fail = () => {
+      alert('로그아웃 실패했습니다.');
+    };
+
+    httpRequest('POST', '/api/logout', null, success, fail)
+  });
+}

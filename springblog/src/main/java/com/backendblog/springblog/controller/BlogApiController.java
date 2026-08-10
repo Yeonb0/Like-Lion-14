@@ -1,5 +1,6 @@
 package com.backendblog.springblog.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,10 @@ public class BlogApiController {
     // HTTP 메소드가 POST 일때 전달받은 URL과 동일하면 메소드로 매칭
     @PostMapping("/api/articles")
     // @RequestBody : HTTP 요청 Body에 담긴 JSON 데이터를 Java 객체로 변환
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article savedArticle = blogService.save(request);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request,
+        Principal principal
+    ) {
+        Article savedArticle = blogService.save(request, principal.getName());
 
         // 요청한 자원이 성공적으로 생성되었으며 저장된 블로그 글 정보를 응답 객체에 담아 전송
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -66,7 +69,7 @@ public class BlogApiController {
 
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteArticleById(@PathVariable long id) {
-        blogService.deleteById(id);
+        blogService.delete(id);
 
         return ResponseEntity.ok()
                 .build();
